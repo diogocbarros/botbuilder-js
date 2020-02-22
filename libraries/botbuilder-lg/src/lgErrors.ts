@@ -61,6 +61,8 @@ export class LGErrors
 
     public static readonly noEndingInMultiline = 'Close ``` is missing';
 
+    public static readonly noCloseBracket  = 'Close } is missing in Expression';
+
     public static readonly loopDetected = 'Loop detected:';
 
     public static readonly duplicatedTemplateInSameTemplate = (templateName: string): string => `Duplicated definitions found for template: ${ templateName }`;

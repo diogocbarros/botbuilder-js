@@ -240,4 +240,10 @@ describe(`LGExceptionTest`, function() {
         assert.strictEqual(errorMessage.includes(`Error occurs when evaluating expression`), true);
     });
 
+    it(`TestExpressionFormatError`, function() {
+        var diagnostics = GetDiagnostics(`ExpressionFormatError.lg`);
+        assert.strictEqual(diagnostics.length, 1);
+        assert.strictEqual(diagnostics[0].message.includes(`Close } is missing in Expression`), true);
+    });
+
 });

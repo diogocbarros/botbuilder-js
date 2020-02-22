@@ -376,19 +376,23 @@ class StaticCheckerInner extends AbstractParseTreeVisitor<Diagnostic[]> implemen
 
     private checkExpression(exp: string, context: ParserRuleContext): Diagnostic[] {
         const result: Diagnostic[] = [];
-        exp = LGExtensions.trimExpression(exp);
+        if(!exp.endsWith('}')) {
+            result.push(this.buildLGDiagnostic({message: LGErrors.noCloseBracket, context: context}));
+        } else {
+            exp = LGExtensions.trimExpression(exp);
 
-        try {
-            this.expressionParser.parse(exp);
-        } catch (e) {
-            result.push(this.buildLGDiagnostic({
-                message: e.message.concat(` in expression '${ exp }'`),
-                context: context
-            }));
-
-            return result;
+            try {
+                this.expressionParser.parse(exp);
+            } catch (e) {
+                result.push(this.buildLGDiagnostic({
+                    message: e.message.concat(` in expression '${ exp }'`),
+                    context: context
+                }));
+    
+                return result;
+            }
         }
-
+        
         return result;
     }
 
